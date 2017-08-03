@@ -1,7 +1,7 @@
-# Swagger .NET Core Samples
+# Swagger .NET Core Sample
 This directory contains a proof of concept that you can use Swashbuckler (https://github.com/domaindrivendev/Swashbuckle).
 
-## How to run the samples?
+## How to run the sample?
 
 In order to run these samples, you first need to [install .NET Core](http://dotnet.github.io/getting-started/). After that, you can clone this repo, go into each of the src folder:
 
