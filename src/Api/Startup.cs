@@ -43,7 +43,7 @@ namespace swagger_poc
                 setup.DescribeAllParametersInCamelCase();
                 setup.DescribeStringEnumsInCamelCase();
 
-                setup.SwaggerDoc("v1", new Info
+                setup.SwaggerDoc("v2", new Info
                 {
                     Contact = new Contact
                     {
@@ -52,7 +52,7 @@ namespace swagger_poc
                         Url = "https://wwww.github.com/luiz-moreira-avalara/swagger-poc"
                     },
                     Description = "Swagger proof of concept",
-                    Version = "Version 1",
+                    Version = "Version 2",
                     Title = "Swagger PoC",
                 });
 
@@ -72,7 +72,7 @@ namespace swagger_poc
             app.UseSwaggerUI(action =>
             {
                 action.RoutePrefix = "api-docs";
-                action.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1");
+                action.SwaggerEndpoint("/swagger/v2/swagger.json", "API v1");
             });
         }
     }
