@@ -59,6 +59,14 @@ namespace swagger_poc
                 var comments = new XPathDocument($"{AppContext.BaseDirectory}{Path.DirectorySeparatorChar}{_hostingEnvrionment.ApplicationName}.xml");
                 setup.OperationFilter<XmlCommentsOperationFilter>(comments);
                 setup.IncludeXmlComments(() => comments);
+
+                setup.AddSecurityDefinition("Bearer", new ApiKeyScheme()
+                {
+                    Name = "Authorization",
+                    Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+                    Type = "apiKey",
+                    In = "header"
+                });
             });
         }
 
@@ -72,7 +80,7 @@ namespace swagger_poc
             app.UseSwaggerUI(action =>
             {
                 action.RoutePrefix = "api-docs";
-                action.SwaggerEndpoint("/swagger/v2/swagger.json", "API v1");
+                action.SwaggerEndpoint("/swagger/v2/swagger.json", "API v2");
             });
         }
     }
