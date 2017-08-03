@@ -18,7 +18,7 @@ namespace Swagger.PoC.Controllers
         /// <remarks>For valid response try integer IDs with value &lt; 1000. Anything above 1000 or nonintegers will generate API errors</remarks>
         /// <param name="orderId">ID of the order that needs to be deleted</param>
         /// <response code="400">Invalid ID supplied</response>
-        /// <response code="404">OrderViewModel not found</response>
+        /// <response code="404">Order not found</response>
         [HttpDelete]
         [Route("/v2/stores/order/{orderId}")]
         public virtual void DeleteOrder([FromRoute]string orderId)
@@ -34,7 +34,7 @@ namespace Swagger.PoC.Controllers
         /// <param name="orderId">ID of pet that needs to be fetched</param>
         /// <response code="200">successful operation</response>
         /// <response code="400">Invalid ID supplied</response>
-        /// <response code="404">OrderViewModel not found</response>
+        /// <response code="404">Order not found</response>
         [HttpGet]
         [Route("/v2/stores/order/{orderId}")]
         [SwaggerResponse(200, typeof(OrderViewModel))]
@@ -55,7 +55,7 @@ namespace Swagger.PoC.Controllers
         /// <remarks></remarks>
         /// <param name="body">order placed for purchasing the pet</param>
         /// <response code="200">successful operation</response>
-        /// <response code="400">Invalid OrderViewModel</response>
+        /// <response code="400">Invalid Order</response>
         [HttpPost]
         [Route("/v2/stores/order")]
         [SwaggerResponse(200, typeof(OrderViewModel))]

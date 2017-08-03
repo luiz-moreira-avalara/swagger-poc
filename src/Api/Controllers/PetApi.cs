@@ -16,7 +16,7 @@ namespace Swagger.PoC.Controllers
         /// Add a new pet to the store
         /// </summary>
         /// <remarks></remarks>
-        /// <param name="body">PetViewModel object that needs to be added to the store</param>
+        /// <param name="body">Pet object that needs to be added to the store</param>
         /// <response code="201">Return GetPet URL</response>
         /// <response code="405">Invalid input</response>
         [HttpPost]
@@ -31,7 +31,7 @@ namespace Swagger.PoC.Controllers
         /// </summary>
         /// <remarks></remarks>
         /// <param name="apiKey"></param>
-        /// <param name="petId">PetViewModel id to delete</param>
+        /// <param name="petId">Pet id to delete</param>
         /// <response code="204">successful operation</response>
         /// <response code="400">Invalid pet value</response>
         [HttpDelete]
@@ -80,7 +80,7 @@ namespace Swagger.PoC.Controllers
         /// <param name="petId">ID of pet that needs to be fetched</param>
         /// <response code="200">successful operation</response>
         /// <response code="400">Invalid ID supplied</response>
-        /// <response code="404">PetViewModel not found</response>
+        /// <response code="404">Pet not found</response>
         [HttpGet]
         [Route("/v2/pets/{petId}")]
         [SwaggerResponse(200, typeof(PetViewModel))]
@@ -94,10 +94,10 @@ namespace Swagger.PoC.Controllers
         /// Update an existing pet
         /// </summary>
         /// <remarks></remarks>
-        /// <param name="body">PetViewModel object that needs to be added to the store</param>
+        /// <param name="body">Pet object that needs to be added to the store</param>
         /// <response code="200">successful operation</response>
         /// <response code="400">Invalid ID supplied</response>
-        /// <response code="404">PetViewModel not found</response>
+        /// <response code="404">Pet not found</response>
         /// <response code="405">Validation exception</response>
         [HttpPut]
         [Route("/v2/pets")]

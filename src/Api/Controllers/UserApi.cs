@@ -34,7 +34,7 @@ namespace Swagger.PoC.Controllers
         /// <remarks>This can only be done by the logged in user.</remarks>
         /// <param name="username">The name that needs to be deleted</param>
         /// <response code="400">Invalid username supplied</response>
-        /// <response code="404">UserViewModel not found</response>
+        /// <response code="404">User not found</response>
         [HttpDelete]
         [Route("/v2/users/{username}")]
         public virtual void DeleteUser([FromRoute]string username)
@@ -50,7 +50,7 @@ namespace Swagger.PoC.Controllers
         /// <param name="username">The name that needs to be fetched. Use user1 for testing.</param>
         /// <response code="200">successful operation</response>
         /// <response code="400">Invalid username supplied</response>
-        /// <response code="404">UserViewModel not found</response>
+        /// <response code="404">User not found</response>
         [HttpGet]
         [Route("/v2/users/{username}")]
         [SwaggerResponse(200, typeof(UserViewModel))]
@@ -107,7 +107,7 @@ namespace Swagger.PoC.Controllers
         /// <param name="username">name that need to be deleted</param>
         /// <param name="body">Updated user object</param>
         /// <response code="400">Invalid user supplied</response>
-        /// <response code="404">UserViewModel not found</response>
+        /// <response code="404">User not found</response>
         [HttpPut]
         [Route("/v2/users/{username}")]
         public virtual void UpdateUser([FromRoute]string username, [FromBody]UserViewModel body)
