@@ -3,7 +3,7 @@ This directory contains a proof of concept that you can use Swashbuckler (https:
 
 ## How to run the sample?
 
-In order to run these samples, you first need to [install .NET Core](http://dotnet.github.io/getting-started/). After that, you can clone this repo, go into each of the src folder:
+In order to run thiz sample, you first need to [install .NET Core](http://dotnet.github.io/getting-started/). After that, you can clone this repo, go into the src folder:
 
 * Run from source using the following commands:
 	* `dotnet restore`
