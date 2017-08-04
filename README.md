@@ -39,22 +39,22 @@ With scope `pet`:
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzY29wZSI6InBldCJ9.Ymp788iA-u77z90Itzk1jzOQ2o5iqjfDUJjk_-9YLPo
 ```
 
-With both scopes `user` and `store`:
+With scopes `user` and `store`:
 ```
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzY29wZSI6WyJ1c2VyIiwic3RvcmUiXX0.gbZvSumHt38-xmmNQx39NiAKrQtGqDbIgZ8T0yB2wIA
 ```
 
-With both scopes `user` and `pet`:
+With scopes `user` and `pet`:
 ```
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzY29wZSI6WyJ1c2VyIiwicGV0Il19.2TWLa4hdiUK4emebcQmK7F-qIR0QP1G1i9W7AFv23AA
 ```
 
-With both scopes `store` and `pet`:
+With scopes `store` and `pet`:
 ```
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzY29wZSI6WyJzdG9yZSIsInBldCJdfQ.p6i4oXTZ01tSRzgSm1EqlZFXfY4SxpV8jgOXiwIwHew
 ```
 
-With both scopes `user`, `store` and `store`:
+With all scopes `user`, `store` and `store`:
 ```
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzY29wZSI6WyJ1c2VyIiwic3RvcmUiLCJwZXQiXX0.AIDulefvT7C-bh9MeyCaEaqJck9tJS7bqiD0EYeglmo
 ```
