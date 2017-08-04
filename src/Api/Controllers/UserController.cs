@@ -1,8 +1,9 @@
 using System;
-using System.Collections.Generic;
 using System.Net;
+using Bogus;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
+using Swagger.PoC.Extension;
 using Swagger.PoC.ViewModels;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
@@ -11,7 +12,11 @@ namespace Swagger.PoC.Controllers
     /// <summary>
     /// 
     /// </summary>
-    public class UserApiController : Controller
+    [Authorize("user")]
+    [Route("[controller]s")]
+    [Produces("application/json")]
+    [Consumes("application/json")]
+    public class UserController : Controller
     {
         /// <summary>
         /// Create user
@@ -21,11 +26,10 @@ namespace Swagger.PoC.Controllers
         /// <response code="201">successful operation</response>
         /// <response code="405">Invalid input</response>
         [HttpPost]
-        [Route("/v2/users")]
         [SwaggerResponse((int)HttpStatusCode.Created, typeof(Uri))]
         public virtual IActionResult CreateUser([FromBody]UserViewModel body)
         {
-            return CreatedAtRoute(nameof(GetUserByName), new {username = body.Username});
+            return CreatedAtAction(nameof(GetUserByName), new {username = body.Username}, FakeViewModels.User);
         }
 
         /// <summary>
@@ -35,11 +39,10 @@ namespace Swagger.PoC.Controllers
         /// <param name="username">The name that needs to be deleted</param>
         /// <response code="400">Invalid username supplied</response>
         /// <response code="404">User not found</response>
-        [HttpDelete]
-        [Route("/v2/users/{username}")]
-        public virtual void DeleteUser([FromRoute]string username)
-        { 
-            throw new NotImplementedException();
+        [HttpDelete("{username}")]
+        public virtual IActionResult DeleteUser([FromRoute]string username)
+        {
+            return NoContent();
         }
 
 
@@ -51,17 +54,11 @@ namespace Swagger.PoC.Controllers
         /// <response code="200">successful operation</response>
         /// <response code="400">Invalid username supplied</response>
         /// <response code="404">User not found</response>
-        [HttpGet]
-        [Route("/v2/users/{username}")]
+        [HttpGet("{username}", Name = nameof(GetUserByName))]
         [SwaggerResponse(200, typeof(UserViewModel))]
         public virtual IActionResult GetUserByName([FromRoute]string username)
-        { 
-            string exampleJson = null;
-            
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<UserViewModel>(exampleJson)
-            : default(UserViewModel);
-            return new ObjectResult(example);
+        {
+            return Ok(FakeViewModels.User);
         }
 
 
@@ -73,30 +70,22 @@ namespace Swagger.PoC.Controllers
         /// <param name="password">The password for login in clear text</param>
         /// <response code="200">successful operation</response>
         /// <response code="400">Invalid username/password supplied</response>
-        [HttpGet]
-        [Route("/v2/users/login")]
+        [HttpGet("login")]
         [SwaggerResponse(200, typeof(string))]
         public virtual IActionResult LoginUser([FromQuery]string username, [FromQuery]string password)
         { 
-            string exampleJson = null;
-            
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<string>(exampleJson)
-            : default(string);
-            return new ObjectResult(example);
+            return Ok(new Faker().Hashids.Encode(1, 2, 3));
         }
-
 
         /// <summary>
         /// Logs out current logged in user session
         /// </summary>
         /// <remarks></remarks>
-        /// <response code="0">successful operation</response>
-        [HttpGet]
-        [Route("/v2/users/logout")]
-        public virtual void LogoutUser()
-        { 
-            throw new NotImplementedException();
+        /// <response code="204">successful operation</response>
+        [HttpGet("logout")]
+        public virtual IActionResult LogoutUser()
+        {
+            return NoContent();
         }
 
 
@@ -106,13 +95,13 @@ namespace Swagger.PoC.Controllers
         /// <remarks>This can only be done by the logged in user.</remarks>
         /// <param name="username">name that need to be deleted</param>
         /// <param name="body">Updated user object</param>
+        /// <response code="200">successful operation</response>
         /// <response code="400">Invalid user supplied</response>
         /// <response code="404">User not found</response>
-        [HttpPut]
-        [Route("/v2/users/{username}")]
-        public virtual void UpdateUser([FromRoute]string username, [FromBody]UserViewModel body)
-        { 
-            throw new NotImplementedException();
+        [HttpPut("{username}")]
+        public virtual IActionResult UpdateUser([FromRoute]string username, [FromBody]UserViewModel body)
+        {
+            return CreatedAtAction(nameof(GetUserByName), new { username = body.Username });
         }
     }
 }

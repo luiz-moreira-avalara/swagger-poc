@@ -67,7 +67,7 @@ namespace Swagger.PoC.Extension
                     .RuleFor(u => u.Email, f => f.Internet.Email())
                     .RuleFor(u => u.FirstName, f => f.Name.FirstName())
                     .RuleFor(u => u.LastName, f => f.Name.LastName())
-                    .RuleFor(u => u.Password, f => f.Hashids.Encode(f.Random.Int()))
+                    .RuleFor(u => u.Password, f => f.Hashids.Encode(1, 2, 3, 4))
                     .RuleFor(u => u.Phone, f => f.Phone.PhoneNumber())
                     .RuleFor(u => u.UserStatus, f => f.Random.Int())
                     .RuleFor(u => u.Username, f => f.Internet.UserName());

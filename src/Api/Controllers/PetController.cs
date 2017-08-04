@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swagger.PoC.Extension;
 using Swagger.PoC.ViewModels;
@@ -9,8 +10,19 @@ namespace Swagger.PoC.Controllers
     /// <summary>
     /// 
     /// </summary>
-    public class PetApiController : Controller
+    [Authorize("pet")]
+    [Route("[controller]s")]
+    [Produces("application/json")]
+    [Consumes("application/json")]
+    public class PetController : Controller
     {
+
+        [HttpPost("public")]
+        [AllowAnonymous]
+        public virtual IActionResult Public()
+        {
+            return Ok();
+        }
 
         /// <summary>
         /// Add a new pet to the store
@@ -20,10 +32,9 @@ namespace Swagger.PoC.Controllers
         /// <response code="201">Return GetPet URL</response>
         /// <response code="405">Invalid input</response>
         [HttpPost]
-        [Route("/v2/pets")]
         public virtual IActionResult AddPet([FromBody]PetViewModel body)
         {
-            return CreatedAtRoute(nameof(GetPetById), new { id = body.Id }, body);
+            return CreatedAtAction(nameof(GetPetById), new { id = body.Id }, body);
         }
 
         /// <summary>
@@ -34,8 +45,7 @@ namespace Swagger.PoC.Controllers
         /// <param name="petId">Pet id to delete</param>
         /// <response code="204">successful operation</response>
         /// <response code="400">Invalid pet value</response>
-        [HttpDelete]
-        [Route("/v2/pets/{petId}")]
+        [HttpDelete("{petId}")]
         public virtual IActionResult DeletePet([FromHeader]string apiKey, [FromRoute]long? petId)
         {
             return NoContent();
@@ -48,8 +58,7 @@ namespace Swagger.PoC.Controllers
         /// <param name="status">Status values that need to be considered for filter</param>
         /// <response code="200">successful operation</response>
         /// <response code="400">Invalid status value</response>
-        [HttpGet]
-        [Route("/v2/pets/findByStatus")]
+        [HttpGet("findByStatus")]
         [SwaggerResponse(200, typeof(List<PetViewModel>))]
         public virtual IActionResult FindPetsByStatus([FromQuery]List<string> status)
         {
@@ -64,8 +73,7 @@ namespace Swagger.PoC.Controllers
         /// <param name="tags">Tags to filter by</param>
         /// <response code="200">successful operation</response>
         /// <response code="400">Invalid tag value</response>
-        [HttpGet]
-        [Route("/v2/pets/findByTags")]
+        [HttpGet("findByTags")]
         [SwaggerResponse(200, typeof(List<PetViewModel>))]
         public virtual IActionResult FindPetsByTags([FromQuery]List<string> tags)
         {
@@ -82,7 +90,7 @@ namespace Swagger.PoC.Controllers
         /// <response code="400">Invalid ID supplied</response>
         /// <response code="404">Pet not found</response>
         [HttpGet]
-        [Route("/v2/pets/{petId}")]
+        [Route("{petId}")]
         [SwaggerResponse(200, typeof(PetViewModel))]
         public virtual IActionResult GetPetById([FromRoute]long? petId)
         {
@@ -100,7 +108,7 @@ namespace Swagger.PoC.Controllers
         /// <response code="404">Pet not found</response>
         /// <response code="405">Validation exception</response>
         [HttpPut]
-        [Route("/v2/pets")]
+        [Route("pets")]
         [SwaggerResponse(200, typeof(PetViewModel))]
         public virtual IActionResult UpdatePet([FromBody]PetViewModel body)
         {
@@ -118,7 +126,7 @@ namespace Swagger.PoC.Controllers
         /// <response code="200">successful operation</response>
         /// <response code="405">Invalid input</response>
         [HttpPost]
-        [Route("/v2/pets/{petId}")]
+        [Route("{petId}")]
         [SwaggerResponse(200, typeof(PetViewModel))]
         public virtual IActionResult UpdatePetWithForm([FromRoute]string petId, [FromForm]string name, [FromForm]string status)
         {

@@ -1,20 +1,18 @@
-﻿using System;
-using System.IO;
-using System.Xml.XPath;
+﻿using System.Text;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Serialization;
-using Swashbuckle.AspNetCore.Swagger;
-using Swashbuckle.AspNetCore.SwaggerGen;
+using Swagger.PoC.Extension;
 
 namespace Swagger.PoC
 {
     public class Startup
     {
-        private readonly IHostingEnvironment _hostingEnvrionment;
+        private readonly IHostingEnvironment _hostingEnvironment;
 
         public Startup(IHostingEnvironment env)
         {
@@ -24,46 +22,27 @@ namespace Swagger.PoC
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
-            _hostingEnvrionment = env;
+            _hostingEnvironment = env;
         }
 
         public IConfigurationRoot Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddPolicies();
+
             services.AddMvc().AddJsonOptions(
                 opts => { opts.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver(); }); ;
 
-            services.AddSwaggerGen(setup =>
+            services.AddSwaggerGen(options =>
             {
-                setup.DescribeAllEnumsAsStrings();
-                setup.DescribeAllParametersInCamelCase();
-                setup.DescribeStringEnumsInCamelCase();
+                options.DescribeAllEnumsAsStrings();
+                options.DescribeAllParametersInCamelCase();
+                options.DescribeStringEnumsInCamelCase();
 
-                setup.SwaggerDoc("v2", new Info
-                {
-                    Contact = new Contact
-                    {
-                        Email = "guilhermebfm@gmail.com",
-                        Name = "Luiz Guilherme Bauer Fraga Moreira",
-                        Url = "https://wwww.github.com/luiz-moreira-avalara/swagger-poc"
-                    },
-                    Description = "Swagger proof of concept",
-                    Version = "Version 2",
-                    Title = "Swagger PoC",
-                });
-
-                var comments = new XPathDocument($"{AppContext.BaseDirectory}{Path.DirectorySeparatorChar}{_hostingEnvrionment.ApplicationName}.xml");
-                setup.OperationFilter<XmlCommentsOperationFilter>(comments);
-                setup.IncludeXmlComments(() => comments);
-
-                setup.AddSecurityDefinition("Bearer", new ApiKeyScheme()
-                {
-                    Name = "Authorization",
-                    Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
-                    Type = "apiKey",
-                    In = "header"
-                });
+                options.SetSwaggerInfo()
+                    .AddComments(_hostingEnvironment)
+                    .ConfigureOAuth2();
             });
         }
 
@@ -71,8 +50,19 @@ namespace Swagger.PoC
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-
-            app.UseMvc();
+            app.UseJwtBearerAuthentication(new JwtBearerOptions
+            {
+                TokenValidationParameters = new TokenValidationParameters
+                {
+                    RequireExpirationTime = false,
+                    ValidateAudience = false,
+                    ValidateIssuer = false,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration["SecretKey"]))
+                }
+            });
+            app.UseMvc(routes => routes.MapRoute(
+                name: "Default",
+                template: "v2"));
             app.UseSwagger();
             app.UseSwaggerUI(action =>
             {
@@ -80,5 +70,9 @@ namespace Swagger.PoC
                 action.SwaggerEndpoint("/swagger/v2/swagger.json", "API v2");
             });
         }
+
+
+
+
     }
 }

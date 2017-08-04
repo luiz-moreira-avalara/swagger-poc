@@ -1,16 +1,20 @@
-using System;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
+using Swagger.PoC.Extension;
 using Swagger.PoC.ViewModels;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Swagger.PoC.Controllers
-{ 
+{
     /// <summary>
     /// 
     /// </summary>
-    public class StoreApiController : Controller
-    { 
+    [Authorize("store")]
+    [Route("[controller]s")]
+    [Produces("application/json")]
+    [Consumes("application/json")]
+    public class StoreController : Controller
+    {
 
         /// <summary>
         /// Delete purchase order by ID
@@ -19,11 +23,10 @@ namespace Swagger.PoC.Controllers
         /// <param name="orderId">ID of the order that needs to be deleted</param>
         /// <response code="400">Invalid ID supplied</response>
         /// <response code="404">Order not found</response>
-        [HttpDelete]
-        [Route("/v2/stores/order/{orderId}")]
-        public virtual void DeleteOrder([FromRoute]string orderId)
-        { 
-            throw new NotImplementedException();
+        [HttpDelete("order/{orderId}")]
+        public virtual IActionResult DeleteOrder([FromRoute] string orderId)
+        {
+            return NoContent();
         }
 
 
@@ -35,17 +38,11 @@ namespace Swagger.PoC.Controllers
         /// <response code="200">successful operation</response>
         /// <response code="400">Invalid ID supplied</response>
         /// <response code="404">Order not found</response>
-        [HttpGet]
-        [Route("/v2/stores/order/{orderId}")]
+        [HttpGet("order/{orderId}")]
         [SwaggerResponse(200, typeof(OrderViewModel))]
-        public virtual IActionResult GetOrderById([FromRoute]string orderId)
-        { 
-            string exampleJson = null;
-            
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<OrderViewModel>(exampleJson)
-            : default(OrderViewModel);
-            return new ObjectResult(example);
+        public virtual IActionResult GetOrderById([FromRoute] string orderId)
+        {
+            return Ok(FakeViewModels.Order);
         }
 
 
@@ -56,17 +53,11 @@ namespace Swagger.PoC.Controllers
         /// <param name="body">order placed for purchasing the pet</param>
         /// <response code="200">successful operation</response>
         /// <response code="400">Invalid Order</response>
-        [HttpPost]
-        [Route("/v2/stores/order")]
+        [HttpPost("order")]
         [SwaggerResponse(200, typeof(OrderViewModel))]
-        public virtual IActionResult PlaceOrder([FromBody]OrderViewModel body)
-        { 
-            string exampleJson = null;
-            
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<OrderViewModel>(exampleJson)
-            : default(OrderViewModel);
-            return new ObjectResult(example);
+        public virtual IActionResult PlaceOrder([FromBody] OrderViewModel body)
+        {
+            return Ok(FakeViewModels.Order);
         }
     }
 }
