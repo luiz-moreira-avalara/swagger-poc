@@ -16,14 +16,6 @@ namespace Swagger.PoC.Controllers
     [Consumes("application/json")]
     public class PetController : Controller
     {
-
-        [HttpPost("public")]
-        [AllowAnonymous]
-        public virtual IActionResult Public()
-        {
-            return Ok();
-        }
-
         /// <summary>
         /// Add a new pet to the store
         /// </summary>

@@ -30,7 +30,7 @@ namespace Swagger.PoC
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddPolicies();
-
+            services.AddSingleton<IConfiguration>(Configuration);
             services.AddMvc().AddJsonOptions(
                 opts => { opts.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver(); }); ;
 
@@ -62,7 +62,7 @@ namespace Swagger.PoC
             });
             app.UseMvc(routes => routes.MapRoute(
                 name: "Default",
-                template: "v2"));
+                template: "api/v2"));
             app.UseSwagger();
             app.UseSwaggerUI(action =>
             {
@@ -70,9 +70,5 @@ namespace Swagger.PoC
                 action.SwaggerEndpoint("/swagger/v2/swagger.json", "API v2");
             });
         }
-
-
-
-
     }
 }
