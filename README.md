@@ -6,16 +6,19 @@ This directory contains a proof of concept that you can use Swashbuckler (https:
 In order to run this sample, you first need to [install .NET Core](http://dotnet.github.io/getting-started/). After that, you can clone this repo, go into the src folder:
 
 * Run from source using the following commands:
+	* `cd src`
 	* `dotnet restore`
-	* `cd src/Api`
+	* `cd Api`
 	* `dotnet run`
-  * `access [baseUrl]/api-docs`
+  	* access [http://localhost:5000/api-docs](http://localhost:5000/api-docs).
 * Compile and run using the following commands
+	* `cd src`
 	* `dotnet restore`
 	* `dotnet build`
-	* `dotnet src/Api/bin/Debug/[framework]/Api.dll`
-  
-Browse to [http://localhost:5000](http://localhost:5000). Using tokens below different endpoint will be showen in Swagger.
+	* `dotnet Api/bin/Debug/[framework]/Api.dll`
+  	* access [http://localhost:5000/api-docs](http://localhost:5000/api-docs).
+
+Using tokens below different endpoint will be showen in Swagger.
 
 ## Tokens
 
