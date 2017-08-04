@@ -60,4 +60,6 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzY29wZSI6WyJ1c2VyIiwic3RvcmUiLCJwZXQiXX0
 ```
 
 ## Reference:
-  https://github.com/jenyayel/SwaggerSecurityTrimming
+  * https://github.com/jenyayel/SwaggerSecurityTrimming
+  * http://petstore.swagger.io/
+  * https://github.com/domaindrivendev/Swashbuckle.AspNetCore
