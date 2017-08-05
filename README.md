@@ -1,6 +1,8 @@
 # Swagger .NET Core Sample
 This directory contains a proof of concept that you can use Swashbuckler (https://github.com/domaindrivendev/Swashbuckle).
 
+[![Build Status](https://travis-ci.org/luiz-moreira-avalara/swagger-poc.svg?branch=master)](https://travis-ci.org/luiz-moreira-avalara/swagger-poc)
+
 ## How to run the sample?
 
 In order to run this sample, you first need to [install .NET Core](http://dotnet.github.io/getting-started/). After that, you can clone this repo, go into the src folder:
