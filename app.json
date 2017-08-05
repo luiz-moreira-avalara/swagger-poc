@@ -1,5 +1,5 @@
 {
-  "name": "DemoswaShbucklerApp",
+  "name": "DemoSwashbucklerApp",
   "description": "Demo Swashbuckler",
   "repository": "https://github.com/luiz-moreira-avalara/swagger-poc",
   "keywords": ["aspnetcore", "swagger"],
