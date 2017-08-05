@@ -8,7 +8,6 @@ branches:
     - master
 before_script:
   - chmod a+x ./build.sh
-  - chmod a+x ./after-success.sh
 script:
   - ./build.sh
 notifications:
