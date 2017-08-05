@@ -3,6 +3,12 @@ This directory contains a proof of concept that you can use Swashbuckler (https:
 
 [![Build Status](https://travis-ci.org/luiz-moreira-avalara/swagger-poc.svg?branch=master)](https://travis-ci.org/luiz-moreira-avalara/swagger-poc)
 
+## Deploy to Heroku
+Click the button below to set up this app on Heroku:
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/luiz-moreira-avalara/swagger-poc)
+
+
 Check it out at [https://swagger-poc.herokuapp.com/api-docs](https://swagger-poc.herokuapp.com/api-docs).
 Check [apiary doc](http://docs.swashbucklepoc.apiary.io) format.
 ## How to run the sample?

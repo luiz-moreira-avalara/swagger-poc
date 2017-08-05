@@ -1,0 +1,9 @@
+{
+  "name": "DemoswaShbucklerApp",
+  "description": "Demo Swashbuckler",
+  "repository": "https://github.com/luiz-moreira-avalara/swagger-poc",
+  "keywords": ["aspnetcore", "swagger"],
+  "env": {
+	"BUILDPACK_URL": "https://github.com/jincod/dotnetcore-buildpack#v1.0.4"
+    }
+}
