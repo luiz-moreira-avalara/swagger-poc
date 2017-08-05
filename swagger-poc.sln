@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "swagger-poc", "src\Api\swagger-poc.csproj", "{DEAD1CDB-8732-4D1B-B281-B031B256793A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "src\Api\Api.csproj", "{DEAD1CDB-8732-4D1B-B281-B031B256793A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{1D4FCE3D-BF26-4E62-A11B-C7F21BA18436}"
 EndProject
